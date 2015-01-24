@@ -9,6 +9,26 @@
 import UIKit
 
 class ViewController: UIViewController {
+	
+	// Labels to update
+	
+	// Balance Container
+	@IBOutlet weak var currentBalanceLabel: UILabel!
+	@IBOutlet weak var currentLemonBalanceLabel: UILabel!
+	@IBOutlet weak var currentIceCubesBalanceLabel: UILabel!
+	
+	// Purchase Container
+	@IBOutlet weak var lemonToPurchase: UITextField!
+	@IBOutlet weak var iceCubesToPurchase: UITextField!
+	
+	// Mixing Container
+	
+	@IBOutlet weak var lemonToMix: UITextField!
+	@IBOutlet weak var iceCubesToMix: UITextField!
+	
+	//Lemonade taste
+	@IBOutlet weak var lemonadeTaste: UILabel!
+	
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -20,6 +40,36 @@ class ViewController: UIViewController {
 		// Dispose of any resources that can be recreated.
 	}
 
+	// Purchase functions
 
+	@IBAction func buyLessLemon(sender: UIButton) {
+	}
+	
+	@IBAction func buyMoreLemon(sender: UIButton) {
+	}
+	@IBAction func buyLessIce(sender: UIButton) {
+	}
+	@IBAction func buyMoreIce(sender: UIButton) {
+	}
+	
+	
+	
+	
+	// Mixing functions
+	@IBAction func mixLessLemon(sender: UIButton) {
+	}
+	@IBAction func mixMoreLemon(sender: UIButton) {
+	}
+	
+	@IBAction func mixLessIce(sender: UIButton) {
+	}
+	
+	@IBAction func mixMoreIce(sender: UIButton) {
+	}
+	
+	// Start day!
+	
+	@IBAction func startDay(sender: UIButton) {
+	}
 }
 
