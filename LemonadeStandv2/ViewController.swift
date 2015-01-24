@@ -44,6 +44,7 @@ class ViewController: UIViewController {
 		// initialize game
     self.initializeData()
 	self.populateStatus(self.data)
+	self.getLemonadeTaste()
 		
 	}
 
@@ -93,6 +94,9 @@ class ViewController: UIViewController {
 		data.iceCubes = 1
 		data.lemons = 1
 		data.money = 10.0
+		data.lemonsUsed = 0
+		data.iceCubesUsed = 0
+		
 	}
 	
 	// populate status
@@ -100,7 +104,40 @@ class ViewController: UIViewController {
 		self.currentBalanceLabel.text = "$\(data.money)"
 		self.currentLemonBalanceLabel.text = "\(data.lemons)"
 		self.currentIceCubesBalanceLabel.text = "\(data.iceCubes)"
+		self.lemonToMix.text = "\(data.lemonsUsed)"
+		self.iceCubesToMix.text = "\(data.iceCubesUsed)"
 	}
+	
+	// calculate how acid is the lemonade
+	func lemonadeAcidIndex(lemon:Int, ice:Int)->CGFloat{
+		if ice <= 0 {
+			return CGFloat(0.0)
+		} else { return CGFloat(lemon/ice)}
+	}
+	
+	
+	func lemonateTaste(lemonadeAcid:CGFloat)-> String{
+		var taste:String!
+		if (lemonadeAcid >= 0.0 || lemonadeAcid <= 0.4) {
+			taste =  "Diluted"
+		}
+		else if (lemonadeAcid > CGFloat(0.4) || lemonadeAcid <= CGFloat(0.6)){
+			taste =  "Neutral"
+		}
+		else if (lemonadeAcid > CGFloat(0.6) || lemonadeAcid <= CGFloat(1.0)){
+			taste = "Acidic"
+		}
+		return taste
+	}
+	
+	
+	func getLemonadeTaste(){
+		var acidIndex = lemonadeAcidIndex(data.iceCubesUsed, ice: data.lemonsUsed)
+		var tasteString = lemonateTaste(acidIndex)
+		//populate label
+		self.lemonadeTaste.text = tasteString
+	}
+	
 
 }
 

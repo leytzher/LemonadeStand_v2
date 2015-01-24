@@ -9,9 +9,11 @@
 import Foundation
 import UIKit
 
-struct Balance{
+class Balance{
 	var money = 0.0
 	var lemons = 0
 	var iceCubes = 0
-}
+	var lemonsUsed = 0
+	var iceCubesUsed = 0
 
+}
