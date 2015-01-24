@@ -29,10 +29,22 @@ class ViewController: UIViewController {
 	//Lemonade taste
 	@IBOutlet weak var lemonadeTaste: UILabel!
 	
+	// create balance instance
+	var data:Balance!
+	
+	
+
+	
+	
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
+		
+		// initialize game
+    self.initializeData()
+	self.populateStatus(self.data)
+		
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -71,5 +83,24 @@ class ViewController: UIViewController {
 	
 	@IBAction func startDay(sender: UIButton) {
 	}
+	
+	
+	// Helper functions
+	
+	// initialize data
+	func initializeData(){
+		data = Balance()
+		data.iceCubes = 1
+		data.lemons = 1
+		data.money = 10.0
+	}
+	
+	// populate status
+	func populateStatus(data:Balance) {
+		self.currentBalanceLabel.text = "$\(data.money)"
+		self.currentLemonBalanceLabel.text = "\(data.lemons)"
+		self.currentIceCubesBalanceLabel.text = "\(data.iceCubes)"
+	}
+
 }
 
