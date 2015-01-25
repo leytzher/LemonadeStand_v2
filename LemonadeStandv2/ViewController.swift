@@ -104,14 +104,28 @@ class ViewController: UIViewController {
 	// Start day!
 	
 	@IBAction func startDay(sender: UIButton) {
+		// reset purchases
+		data.lemonsInCart = 0
+		data.iceCubesInCart = 0
 		// create clients:
 		var clients:[Customer] = self.generateCustomers()
 		// check lemonade taste:
-		var lemonadeFlavour:String = "acidic"
-		// sell lemonade:
-		var isSold:Bool = sellLemonade(clients, lemonadeTaste: lemonadeFlavour)
+		var acidIndex = lemonadeAcidIndex(data.lemonsUsed, ice: data.iceCubesUsed)
+		var tasteString = lemonateTaste(acidIndex)
+
 		
-		// NOT FINISHED
+		// sell lemonade:
+		var lemonadeSold = self.sellLemonade(clients, lemonadeTaste: tasteString)
+		data.money += lemonadeSold
+		
+		populateStatus(self.data)
+		
+		if data.money == 0 {
+			showAlertWithText(header: "Game Over", message: "You don't have money. Game Over.")
+		}
+		
+		
+		
 		
 	}
 	
@@ -128,6 +142,7 @@ class ViewController: UIViewController {
 		data.iceCubesUsed = 0
 		data.iceCubesInCart = 0
 		data.lemonsInCart = 0
+		data.inStock = 0
 		
 	}
 	
@@ -176,8 +191,9 @@ class ViewController: UIViewController {
 	}
 	
 	
+	
 	func generateCustomers()->[Customer]{
-		var myCustomersArray:[Customer]!
+		var myCustomersArray:[Customer]=[]
 		for var i = 0; i < 5; ++i {
 			var customer = Customer()
 			myCustomersArray.append(customer)
@@ -185,18 +201,30 @@ class ViewController: UIViewController {
 		return myCustomersArray
 	}
 	
-	func sellLemonade(customerList:[Customer], lemonadeTaste:String)->Bool {
+	func sellLemonade(customerList:[Customer], lemonadeTaste:String)->Double {
 		var decision:Bool!
-		for client in customerList {
-			if (lemonadeTaste == client.randomPreference()) {
-				println("Paid")
-				decision = true
-			} else {
-				println("I don't like it")
-				decision = false
+		var clientNumber = customerList.count
+		var lemonadesSold:Int = 0
+		var moneyMade:Double = 0.0
+		mixLemonade()
+		if data.inStock == 0 {
+			showAlertWithText(header: "Warning", message: "No Lemonade to sell")
+		} else {
+			for client in customerList {
+				if (lemonadeTaste == client.randomPreference()) {
+				
+					println("Paid!")
+					lemonadesSold += 1
+					data.iceCubesUsed = 0
+					data.lemonsUsed = 0
+				} else {
+				
+				println("Didn't buy")
 			}
 		}
-		return decision
+		}
+		moneyMade = Double(lemonadesSold)
+		return moneyMade
 	}
 	
 	func purchaseLemon(){
@@ -290,6 +318,25 @@ class ViewController: UIViewController {
 		}
 	}
 	
+	func mixLemonade(){
+		if (data.lemonsUsed == 0 && data.iceCubesUsed == 0) {
+			data.inStock = 0
+			showAlertWithText(header: "Warning", message: "No More Lemonade to sell")
+		} else if (data.iceCubesUsed == 0){
+			showAlertWithText(header: "Warning", message: "You are selling only lemon juice! Please add some ice cubes!")
+		} else if (data.lemonsUsed == 0){
+			showAlertWithText(header: "Warning", message: "You are selling ice cubes! Please add some lemons")
+		}
+		else {
+			data.inStock = 1
+		}
+	}
 	
+	func resetMix(){
+		
+		data.iceCubesUsed = 0
+		data.lemonsUsed = 0
+		data.inStock = 0
+	}
 
 }
