@@ -11,12 +11,15 @@ import UIKit
 
 class Factory{
 	
-	class func initializeGame(data:Balance)->Balance{
-		var data = Balance()
-		data.money = 10.0
-		data.iceCubes = 1
-		data.lemons = 1
+	class func createCustomer() -> [Customer] {
 		
-		return data
+		let kNumberOfCustomers = 5
+		var clients:[Customer] = []
+		
+		for var i=0; i < kNumberOfCustomers; ++i {
+			var slot = Customer()
+			clients.append(slot)
+		}
+		return clients
 	}
 }

@@ -15,6 +15,7 @@
 		CEB6936F1A734DC00043FD3B /* LemonadeStandv2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6936E1A734DC00043FD3B /* LemonadeStandv2Tests.swift */; };
 		CEB6937B1A7390C10043FD3B /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6937A1A7390C10043FD3B /* Balance.swift */; };
 		CEB6937D1A73948D0043FD3B /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6937C1A73948D0043FD3B /* Factory.swift */; };
+		CEB6937F1A73A47E0043FD3B /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6937E1A73A47E0043FD3B /* Customer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		CEB6936E1A734DC00043FD3B /* LemonadeStandv2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonadeStandv2Tests.swift; sourceTree = "<group>"; };
 		CEB6937A1A7390C10043FD3B /* Balance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		CEB6937C1A73948D0043FD3B /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Factory.swift; path = ../Factory.swift; sourceTree = "<group>"; };
+		CEB6937E1A73A47E0043FD3B /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			children = (
 				CEB693581A734DC00043FD3B /* AppDelegate.swift */,
 				CEB6935A1A734DC00043FD3B /* ViewController.swift */,
+				CEB6937E1A73A47E0043FD3B /* Customer.swift */,
 				CEB6937A1A7390C10043FD3B /* Balance.swift */,
 				CEB6937C1A73948D0043FD3B /* Factory.swift */,
 				CEB6935C1A734DC00043FD3B /* Main.storyboard */,
@@ -219,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB6937D1A73948D0043FD3B /* Factory.swift in Sources */,
+				CEB6937F1A73A47E0043FD3B /* Customer.swift in Sources */,
 				CEB6935B1A734DC00043FD3B /* ViewController.swift in Sources */,
 				CEB6937B1A7390C10043FD3B /* Balance.swift in Sources */,
 				CEB693591A734DC00043FD3B /* AppDelegate.swift in Sources */,

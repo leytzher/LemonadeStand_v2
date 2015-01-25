@@ -118,13 +118,13 @@ class ViewController: UIViewController {
 	
 	func lemonateTaste(lemonadeAcid:CGFloat)-> String{
 		var taste:String!
-		if (lemonadeAcid >= 0.0 || lemonadeAcid <= 0.4) {
+		if (lemonadeAcid >= 0.0 && lemonadeAcid <= 0.4) {
 			taste =  "Diluted"
 		}
-		else if (lemonadeAcid > CGFloat(0.4) || lemonadeAcid <= CGFloat(0.6)){
+		else if (lemonadeAcid > CGFloat(0.4) && lemonadeAcid <= CGFloat(0.6)){
 			taste =  "Neutral"
 		}
-		else if (lemonadeAcid > CGFloat(0.6) || lemonadeAcid <= CGFloat(1.0)){
+		else if (lemonadeAcid > CGFloat(0.6) && lemonadeAcid <= CGFloat(1.0)){
 			taste = "Acidic"
 		}
 		return taste
@@ -138,6 +138,28 @@ class ViewController: UIViewController {
 		self.lemonadeTaste.text = tasteString
 	}
 	
+	
+	func generateCustomers()->[Customer]{
+		var myCustomersArray:[Customer]!
+		for var i = 0; i < 5; ++i {
+			var customer = Customer()
+			myCustomersArray.append(customer)
+		}		
+		return myCustomersArray
+	}
+	
+	func sellLemonade(customerList:[Customer], lemonadeTaste:String)->Bool {
+		var decision:Bool!
+		for client in customerList {
+			if (lemonadeTaste == client.randomPreference()) {
+				println("Paid")
+				decision = true
+			} else {
+				println("I don't like it")
+				decision = false
+			}
+		}
+		return decision
+	}
 
 }
-
