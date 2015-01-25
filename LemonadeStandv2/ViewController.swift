@@ -66,8 +66,12 @@ class ViewController: UIViewController {
 		populateStatus(self.data)
 	}
 	@IBAction func buyLessIce(sender: UIButton) {
+		purchaseLessIce()
+		populateStatus(self.data)
 	}
 	@IBAction func buyMoreIce(sender: UIButton) {
+		purchaseMoreIce()
+		populateStatus(self.data)
 	}
 	
 	
@@ -204,5 +208,22 @@ class ViewController: UIViewController {
 		self.presentViewController(alert, animated: true, completion: nil)
 	}
 	
+	func purchaseMoreIce(){
+		if data.money > 1.0 {
+			data.iceCubes += 1
+			data.money -= 1.0
+		} else {
+			showAlertWithText(header: "Warning", message: "Not enough money to buy ice cubes")
+		}
+	}
+	
+	func purchaseLessIce(){
+		if data.iceCubes > 0 {
+			data.iceCubes -= 1
+			data.money += 1.0
+		} else {
+			showAlertWithText(header: "Warning", message: "You don't have ice cubes")
+		}
+	}
 
 }
