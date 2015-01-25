@@ -79,8 +79,12 @@ class ViewController: UIViewController {
 	
 	// Mixing functions
 	@IBAction func mixLessLemon(sender: UIButton) {
+		self.removeLemon()
+		populateStatus(self.data)
 	}
 	@IBAction func mixMoreLemon(sender: UIButton) {
+		self.addLemon()
+		populateStatus(self.data)
 	}
 	
 	@IBAction func mixLessIce(sender: UIButton) {
@@ -114,6 +118,8 @@ class ViewController: UIViewController {
 		data.money = 10.0
 		data.lemonsUsed = 0
 		data.iceCubesUsed = 0
+		data.iceCubesInCart = 0
+		data.lemonsInCart = 0
 		
 	}
 	
@@ -124,6 +130,9 @@ class ViewController: UIViewController {
 		self.currentIceCubesBalanceLabel.text = "\(data.iceCubes)"
 		self.lemonToMix.text = "\(data.lemonsUsed)"
 		self.iceCubesToMix.text = "\(data.iceCubesUsed)"
+		self.iceCubesToPurchase.text = "\(data.iceCubesInCart)"
+		self.lemonToPurchase.text = "\(data.lemonsInCart)"
+		
 	}
 	
 	// calculate how acid is the lemonade
@@ -182,9 +191,10 @@ class ViewController: UIViewController {
 	
 	func purchaseLemon(){
 		// discount $2 from balance
-		if data.money > 2.0{
+		if data.money >= 2.0{
 			data.lemons += 1
 			data.money -= 2.0
+			data.lemonsInCart += 1
 		} else {
 			// display a message box "No more money to buy lemons"
 			showAlertWithText(header: "Warning", message: "Not enough money to buy lemons.")
@@ -193,9 +203,10 @@ class ViewController: UIViewController {
 
 	func purchaseLessLemon(){
 			// discount $2 from balance
-			if data.lemons > 0 {
+			if data.lemonsInCart > 0 {
 				data.lemons -= 1
 				data.money += 2.0
+				data.lemonsInCart -= 1
 			} else {
 				// display a message box "No more money to buy lemons"
 				showAlertWithText(header: "Warning", message: "You don't have lemons")
@@ -209,21 +220,46 @@ class ViewController: UIViewController {
 	}
 	
 	func purchaseMoreIce(){
-		if data.money > 1.0 {
+		if data.money >= 1.0 {
 			data.iceCubes += 1
 			data.money -= 1.0
+			data.iceCubesInCart += 1
 		} else {
 			showAlertWithText(header: "Warning", message: "Not enough money to buy ice cubes")
 		}
 	}
 	
 	func purchaseLessIce(){
-		if data.iceCubes > 0 {
+		if data.iceCubesInCart > 0 {
 			data.iceCubes -= 1
 			data.money += 1.0
+			data.iceCubesInCart -= 1
 		} else {
 			showAlertWithText(header: "Warning", message: "You don't have ice cubes")
 		}
+	}
+	
+	func addLemon(){
+		// check if data.lemons >0
+		if data.lemons > 0 {
+		// add 1 lemon to mix
+			data.lemonsUsed += 1
+		// take away 1 lemon from balance
+			data.lemons -= 1
+		// else print warning
+		} else {
+			showAlertWithText(header: "Warning", message: "You don't have lemons")
+		}
+	}
+	
+	func removeLemon(){
+		if data.lemonsUsed > 0 {
+			data.lemonsUsed -= 1
+			data.lemons += 1
+		} else {
+			showAlertWithText(header: "Warning", message: "No more lemons to remove")
+		}
+		
 	}
 
 }

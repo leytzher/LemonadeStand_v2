@@ -15,5 +15,7 @@ class Balance{
 	var iceCubes = 0
 	var lemonsUsed = 0
 	var iceCubesUsed = 0
+	var lemonsInCart = 0
+	var iceCubesInCart = 0
 
 }
