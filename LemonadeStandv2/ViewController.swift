@@ -81,16 +81,24 @@ class ViewController: UIViewController {
 	@IBAction func mixLessLemon(sender: UIButton) {
 		self.removeLemon()
 		populateStatus(self.data)
+		self.getLemonadeTaste()
 	}
 	@IBAction func mixMoreLemon(sender: UIButton) {
 		self.addLemon()
 		populateStatus(self.data)
+		self.getLemonadeTaste()
 	}
 	
 	@IBAction func mixLessIce(sender: UIButton) {
+		self.removeIce()
+		populateStatus(self.data)
+		self.getLemonadeTaste()
 	}
 	
 	@IBAction func mixMoreIce(sender: UIButton) {
+		self.addIce()
+		populateStatus(self.data)
+		self.getLemonadeTaste()
 	}
 	
 	// Start day!
@@ -137,32 +145,34 @@ class ViewController: UIViewController {
 	
 	// calculate how acid is the lemonade
 	func lemonadeAcidIndex(lemon:Int, ice:Int)->CGFloat{
-		if ice <= 0 {
-			return CGFloat(0.0)
+		if (ice == 0 && lemon == 0) { return CGFloat(1.0) }
+		else if ((ice == 0) && (lemon > 0)) {
+			return CGFloat(1.1)
 		} else { return CGFloat(lemon/ice)}
 	}
 	
 	
 	func lemonateTaste(lemonadeAcid:CGFloat)-> String{
 		var taste:String!
-		if (lemonadeAcid >= 0.0 && lemonadeAcid <= 0.4) {
+		if (lemonadeAcid < CGFloat(1.0)) {
 			taste =  "Diluted"
 		}
-		else if (lemonadeAcid > CGFloat(0.4) && lemonadeAcid <= CGFloat(0.6)){
-			taste =  "Neutral"
+		else if (lemonadeAcid > CGFloat(1.0)){
+			taste =  "Acidic"
 		}
-		else if (lemonadeAcid > CGFloat(0.6) && lemonadeAcid <= CGFloat(1.0)){
-			taste = "Acidic"
+		else {
+			taste = "Neutral"
 		}
 		return taste
 	}
 	
 	
 	func getLemonadeTaste(){
-		var acidIndex = lemonadeAcidIndex(data.iceCubesUsed, ice: data.lemonsUsed)
+		var acidIndex = lemonadeAcidIndex(data.lemonsUsed, ice: data.iceCubesUsed)
 		var tasteString = lemonateTaste(acidIndex)
 		//populate label
 		self.lemonadeTaste.text = tasteString
+		
 	}
 	
 	
@@ -259,7 +269,27 @@ class ViewController: UIViewController {
 		} else {
 			showAlertWithText(header: "Warning", message: "No more lemons to remove")
 		}
+	}
+	
+	func addIce(){
+		if data.iceCubes > 0 {
+			data.iceCubesUsed += 1
+			data.iceCubes -= 1
+		} else {
+			showAlertWithText(header: "Warning", message: "You don't have ice")
+		}
 		
 	}
+	
+	func removeIce(){
+		if data.iceCubesUsed > 0 {
+			data.iceCubesUsed -= 1
+			data.iceCubes += 1
+		} else {
+			showAlertWithText(header: "Warning", message: "No more ice cubes to remove")
+		}
+	}
+	
+	
 
 }
