@@ -46,6 +46,7 @@ class ViewController: UIViewController {
 	self.populateStatus(self.data)
 	self.getLemonadeTaste()
 		
+		
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -56,9 +57,13 @@ class ViewController: UIViewController {
 	// Purchase functions
 
 	@IBAction func buyLessLemon(sender: UIButton) {
+		purchaseLessLemon()
+		populateStatus(self.data)
 	}
 	
 	@IBAction func buyMoreLemon(sender: UIButton) {
+		purchaseLemon()
+		populateStatus(self.data)
 	}
 	@IBAction func buyLessIce(sender: UIButton) {
 	}
@@ -83,6 +88,15 @@ class ViewController: UIViewController {
 	// Start day!
 	
 	@IBAction func startDay(sender: UIButton) {
+		// create clients:
+		var clients:[Customer] = self.generateCustomers()
+		// check lemonade taste:
+		var lemonadeFlavour:String = "acidic"
+		// sell lemonade:
+		var isSold:Bool = sellLemonade(clients, lemonadeTaste: lemonadeFlavour)
+		
+		// NOT FINISHED
+		
 	}
 	
 	
@@ -161,5 +175,34 @@ class ViewController: UIViewController {
 		}
 		return decision
 	}
+	
+	func purchaseLemon(){
+		// discount $2 from balance
+		if data.money > 2.0{
+			data.lemons += 1
+			data.money -= 2.0
+		} else {
+			// display a message box "No more money to buy lemons"
+			showAlertWithText(header: "Warning", message: "Not enough money to buy lemons.")
+		}
+	}
+
+	func purchaseLessLemon(){
+			// discount $2 from balance
+			if data.lemons > 0 {
+				data.lemons -= 1
+				data.money += 2.0
+			} else {
+				// display a message box "No more money to buy lemons"
+				showAlertWithText(header: "Warning", message: "You don't have lemons")
+			}
+	}
+	
+	func showAlertWithText(header: String = "Warning", message:String) {
+		var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+		alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+		self.presentViewController(alert, animated: true, completion: nil)
+	}
+	
 
 }
